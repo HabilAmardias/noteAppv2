@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Patch, Delete, UseGuards, Body } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, UseGuards, Body, Param, ParseUUIDPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { NoteService } from './note.service';
 import { GetUser } from 'src/auth/custom_decorator';
 import { NoteDto } from './dto';
-import { deleteNoteDto } from './dto/delete-note.dto';
+import { EditNoteDto } from './dto/edit-note.dto';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('note')
@@ -20,8 +20,13 @@ export class NoteController {
         return this.noteService.createNote(userId,dto)
     }
 
-    @Delete()
-    deleteNoteDto(@GetUser('userId') userId:string, @Body() dto:deleteNoteDto){
-        return this.noteService.deleteNote(userId,dto)
+    @Delete(':noteId')
+    deleteNote(@GetUser('userId') userId:string, @Param('noteId',ParseUUIDPipe) noteId:string){
+        return this.noteService.deleteNote(userId,noteId)
+    }
+
+    @Patch(':noteId')
+    editNote(@Body() dto:EditNoteDto, @Param('noteId',ParseUUIDPipe) noteId:string, @GetUser('userId') userId:string){
+        return this.noteService.editNote(dto,noteId,userId)
     }
 }

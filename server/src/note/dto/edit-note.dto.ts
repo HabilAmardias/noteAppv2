@@ -1,9 +1,9 @@
 import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 
-export class NoteDto{
+export class EditNoteDto{
     @IsString()
-    @IsNotEmpty()
-    noteTitle:string;
+    @IsOptional()
+    noteTitle?:string;
 
     @IsString()
     @IsOptional()
