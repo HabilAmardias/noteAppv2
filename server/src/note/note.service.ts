@@ -24,7 +24,7 @@ export class NoteService {
                 data:{
                     noteTitle:dto.noteTitle,
                     authorId:userId,
-                    noteDesc:dto.noteTitle
+                    noteDesc:dto.noteDesc
                 }
             })
             return note
