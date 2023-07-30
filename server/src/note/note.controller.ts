@@ -15,6 +15,11 @@ export class NoteController {
         return this.noteService.getNotes(userId)
     }
 
+    @Get(':noteId')
+    getNoteById(@GetUser('userId') userId:string, @Param('noteId',ParseUUIDPipe) noteId:string){
+        return this.noteService.getNoteById(userId,noteId)
+    }
+
     @Post()
     createNote(@GetUser('userId') userId:string, @Body() dto:NoteDto){
         return this.noteService.createNote(userId,dto)

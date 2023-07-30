@@ -11,11 +11,27 @@ export class NoteService {
             const notes=await this.prisma.note.findMany({
                 where:{
                     authorId:userId
-            }})
-            return {notes}
+                },
+                orderBy:{
+                    createdAt:"desc"
+                }
+            })
+            return {notes: notes}
         } catch(error){
             throw error
         }
+    }
+
+    async getNoteById(userId:string, noteId:string){
+        const note = await this.prisma.note.findUnique({
+            where:{
+                noteId:noteId
+            }
+        })
+        if(!note || note.authorId !== userId){
+            return new ForbiddenException('Access to note denied')
+        }
+        return note
     }
 
     async createNote(userId:string, dto: NoteDto){
