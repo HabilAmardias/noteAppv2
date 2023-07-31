@@ -1,10 +1,10 @@
 import { type Actions, fail } from '@sveltejs/kit';
-import type { PageServerLoad } from '../$types.js';
+import { API_BASE_URL } from '$env/static/private';
 
 export async function load({cookies}){
     const authorized=cookies.get('token');
     if(authorized){
-        const response = await fetch('http://localhost:3000/note',{
+        const response = await fetch(`${API_BASE_URL}/note`,{
             method:'GET',
             headers:{ "Authorization": `Bearer ${authorized}` },
             credentials:"include"
@@ -24,7 +24,7 @@ export const actions={
         if(title===''||title===null){
             return fail(422,{error:'Note title cannot blank'})
         }
-        const response=await fetch('http://localhost:3000/note',{
+        const response=await fetch(`${API_BASE_URL}/note`,{
             method:'POST',
             headers:{
                 'Content-Type': 'application/json',

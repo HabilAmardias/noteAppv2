@@ -1,10 +1,11 @@
+import { API_BASE_URL } from '$env/static/private';
 import type { Actions } from '@sveltejs/kit';
 import { fail, redirect } from '@sveltejs/kit';
 
 export async function load({cookies,params,fetch}){
     const authorized=cookies.get('token');
     if(authorized){
-        const response = await fetch(`http://localhost:3000/note/${params.slug}`,{
+        const response = await fetch(`${API_BASE_URL}/note/${params.slug}`,{
             method:'GET',
             headers:{"Authorization": `Bearer ${authorized}`},
             credentials:'include'
@@ -21,7 +22,7 @@ export const actions={
         const form = await request.formData()
         const noteId=form.get('note-id')
         const authorized=cookies.get('token')
-        const response = await fetch(`http://localhost:3000/note/${noteId}`,{
+        const response = await fetch(`${API_BASE_URL}/note/${noteId}`,{
             method:'DELETE',
             headers:{"Authorization": `Bearer ${authorized}`},
             credentials:'include'
@@ -39,7 +40,7 @@ export const actions={
         const desc = form.get('note-desc')
         const noteId=params.slug
         const authorized = cookies.get('token')
-        const response = await fetch(`http://localhost:3000/note/${noteId}`,{
+        const response = await fetch(`${API_BASE_URL}/note/${noteId}`,{
             method:'PATCH',
             headers:{
                 'Content-Type': 'application/json',
