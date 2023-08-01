@@ -11,15 +11,16 @@
     }
 </script>
 
-{#if form?.error}
-    <p class='error'>{form.error}</p>
-{/if}
+
 
 
 {#if login===false}
     <div>
         <form method="POST" action="?/register" use:enhance>
             <h3>Sign Up</h3>
+            {#if form?.error}
+                <p class='error'>{form.error}</p>
+            {/if}
             <label>
                 Username: 
                 <input
@@ -50,7 +51,7 @@
                 required
                 minlength="8"
                 maxlength="20"
-                class="password"
+                class="confirm-password"
                 name="confirm-password"
                 type="password"
                 />
@@ -73,6 +74,9 @@
     <div>
         <form method="POST" action="?/login" use:enhance>
             <h3>Sign In</h3>
+            {#if form?.error}
+                <p class='error'>{form.error}</p>
+            {/if}
             <label>
                 Username: 
                 <input
@@ -113,5 +117,32 @@
 {/if}
 
 <style>
-
+    :global(body){
+        margin: 0;
+    }
+    .error{
+        color: red;
+    }
+    div{
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1em;
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+    h3{
+        margin: 0;
+        text-align: center;
+    }
+    p{
+        text-align: center;
+        margin: 0;
+    }
 </style>
