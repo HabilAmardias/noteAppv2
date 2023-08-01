@@ -17,7 +17,7 @@ export async function load({cookies,params,fetch}){
     }
 }
 
-export const actions={
+export const actions:Actions={
     delete:async({cookies,request,fetch})=>{
         const form = await request.formData()
         const noteId=form.get('note-id')

@@ -2,7 +2,7 @@ import { fail, type Actions, redirect } from "@sveltejs/kit";
 import { API_BASE_URL } from "$env/static/private";
 
 
-export const actions = {
+export const actions:Actions = {
     register: async({cookies, request, fetch})=>{
         const form=await request.formData();
         const username=form.get('username');
@@ -14,7 +14,7 @@ export const actions = {
         })
         const data = await response.json()
         if(data.token){
-            cookies.set('token',data.token,{path: '/'})
+            cookies.set('token',data.token,{path: '/', maxAge:60*60})
             throw redirect(303,'/home')
         } else{
             return fail(422,{error:'Wrong Credentials'})

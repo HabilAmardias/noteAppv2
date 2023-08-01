@@ -15,7 +15,7 @@ export async function load({cookies}){
         return {authorized: authorized}
     }
 }
-export const actions={
+export const actions:Actions={
     create: async({cookies,request,fetch})=>{
         const form = await request.formData();
         const title = form.get('note-title');
