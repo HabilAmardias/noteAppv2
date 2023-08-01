@@ -46,7 +46,7 @@
                     </button>
                 </section>
                 <form class="create-form" method="POST" action="?/create" use:enhance>
-                    <label>
+                    <label class="title-label">
                         Note Title:
                         <input
                         name="note-title"
@@ -54,7 +54,7 @@
                         bind:value={noteTitle}
                         />
                     </label>
-                    <label>
+                    <label class="desc-label">
                         Note Description:
                         <textarea name="note-desc" bind:value={noteDesc}></textarea>
                     </label>
@@ -83,6 +83,10 @@
     :global(body){
         margin: 0;
     }
+
+    input{
+        box-sizing: border-box;
+    }
     .note-link{
         text-decoration: none;
         color: black;
@@ -93,6 +97,11 @@
         border-radius: 1em;
         border-width: 2px;
         margin: 1em 0;
+        transition: transform .2s;
+    }
+
+    .note-link:hover{
+        transform: scale(1.1);
     }
     nav{
         display: flex;
@@ -137,6 +146,7 @@
     .cancel-container{
         display: flex;
         justify-content: end;
+        margin-bottom: 1em;
     }
     .cancel-button{
         background: none;
@@ -147,5 +157,21 @@
         display: flex;
         flex-direction: column;
         gap: 1em;
+    }
+    textarea{
+        resize: none;
+        height: 10em;
+        width: 15em;
+    }
+    .title-label{
+        display: flex;
+        gap: 0.5em;
+    }
+    .desc-label{
+        display: flex;
+        gap: 0.5em;
+    }
+    input{
+        width: 100%;
     }
 </style>

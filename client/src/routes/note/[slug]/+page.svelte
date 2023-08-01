@@ -8,8 +8,12 @@
     }
     let title:string=data.note.noteTitle;
     let desc:string=data.note.noteDesc;
+    function cancelEdit(){
+        title=data.note.noteTitle;
+        desc=data.note.noteDesc;
+        edit=!edit
+    }
 </script>
-
 
 {#if data.authorized === undefined}
     <div class="container">
@@ -70,7 +74,7 @@
                     <button>
                         Edit
                     </button>
-                    <button formmethod="dialog" on:click={handleEdit}>
+                    <button formmethod="dialog" on:click={cancelEdit}>
                         Cancel
                     </button>
                 </section>
@@ -105,6 +109,7 @@
         display: flex;
         flex-direction: column;
         gap: 0.5em;
+        width: 80%;
     }
     h3{
         margin-top: 0;
@@ -120,9 +125,10 @@
     .form-edit{
         display: flex;
         gap: 1em;
+        width: 30%;
     }
     .note-container{
-        width: 40%;
+        width: 50%;
     }
     .button-container{
         display: flex;
@@ -154,5 +160,9 @@
         color: black;
         display: flex;
         gap: 0.3em;
+    }
+    textarea{
+        resize: none;
+        height: 10em;
     }
 </style>
